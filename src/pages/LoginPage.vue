@@ -44,6 +44,7 @@
 
 import { ref } from 'vue'
 import SignupModal from 'src/components/SignupModal.vue'
+import { renderToast } from 'src/utils/notify'
 
 const username = ref('')
 const password = ref('')
@@ -54,6 +55,7 @@ const signupDialog = ref(false)
 const login = () => {
     console.log('hey', username.value)  
     console.log('hey', password.value)
+    renderToast('Login Successful', 'error', `Welcome back, ${username.value}`)
 }
 
 const signup = (state) => {

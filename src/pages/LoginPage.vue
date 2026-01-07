@@ -45,17 +45,27 @@
 import { ref } from 'vue'
 import SignupModal from 'src/components/SignupModal.vue'
 import { renderToast } from 'src/utils/notify'
+import { userAuthStore } from 'src/stores/auth'
 
 const username = ref('')
 const password = ref('')
+const auth = userAuthStore()
 
 const signupDialog = ref(false)
 
 
-const login = () => {
-    console.log('hey', username.value)  
-    console.log('hey', password.value)
-    renderToast('Login Successful', 'error', `Welcome back, ${username.value}`)
+const login = async () => {
+    // renderToast('Login Successful', 'error', `${import.meta.env.VITE_QUASAR_API_URL_LOCAL}, ${username.value}`)
+    renderToast('Login Successful', 'error', `${import.meta.env.VITE_QUASAR_API_URL_LOCAL}, ${username.value}`)
+
+    try {
+      await auth.loginUser({
+        username: username.value,
+        password: password.value
+      })
+    } catch (err) {
+      renderToast('Error', 'Error', err.message || 'Something went wrong. Please refresh the page and try again')
+    }
 }
 
 const signup = (state) => {

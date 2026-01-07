@@ -3,7 +3,9 @@
 
 import { defineConfig } from '#q-app/wrappers'
 import { fileURLToPath } from 'node:url'
+import dotenv from 'dotenv';
 
+const envParsed = dotenv.config().parsed;
 export default defineConfig((ctx) => {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -42,7 +44,9 @@ export default defineConfig((ctx) => {
         browser: [ 'es2022', 'firefox115', 'chrome115', 'safari14' ],
         node: 'node20'
       },
-
+      env: {
+        ...envParsed
+      },
       vueRouterMode: 'hash', // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,

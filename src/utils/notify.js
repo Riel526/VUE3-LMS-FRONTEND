@@ -1,6 +1,6 @@
 import { Notify } from 'quasar'
 
-export const renderToast = (message, status, caption) => {
+export const renderToast = (status, message, caption) => {
     Notify.create({
         message: message,
         caption: caption,

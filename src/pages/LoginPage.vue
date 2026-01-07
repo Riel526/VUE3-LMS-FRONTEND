@@ -56,15 +56,20 @@ const signupDialog = ref(false)
 
 const login = async () => {
     // renderToast('Login Successful', 'error', `${import.meta.env.VITE_QUASAR_API_URL_LOCAL}, ${username.value}`)
-    renderToast('Login Successful', 'error', `${import.meta.env.VITE_QUASAR_API_URL_LOCAL}, ${username.value}`)
 
     try {
-      await auth.loginUser({
+      const res = await auth.loginUser({
         username: username.value,
         password: password.value
       })
+
+      if (res.status === 200) {
+      renderToast('success', `Success (${res.status})`, 'Logged in Successfully')
+      } else {
+        renderToast('error', `Error (${res.status})`, 'Log in Failed')
+      }
     } catch (err) {
-      renderToast('Error', 'Error', err.message || 'Something went wrong. Please refresh the page and try again')
+      renderToast('err', 'Login Failed', err.message || 'Something went wrong. Please refresh the page and try again')
     }
 }
 

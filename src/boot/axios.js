@@ -1,24 +1,56 @@
-import { defineBoot } from '#q-app/wrappers'
+import { boot } from 'quasar/wrappers'
 import axios from 'axios'
+import { Loading, QSpinnerGears } from 'quasar'
+import { userAuthStore } from 'src/stores/auth' // Ensure name matches your export
 
-// Be careful when using SSR for cross-request state pollution
-// due to creating a Singleton instance here;
-// If any client changes this (global) instance, it might be a
-// good idea to move this instance creation inside of the
-// "export default () => {}" function below (which runs individually
-// for each client)
-const api = axios.create({ baseURL: `${import.meta.env.VITE_QUASAR_API_URL_LOCAL}` })
+const api = axios.create({ 
+  baseURL: import.meta.env.VITE_QUASAR_API_URL_LOCAL 
+})
 
-export default defineBoot(({ app }) => {
-  // for use inside Vue files (Options API) through this.$axios and this.$api
+export default boot(({ app }) => {
+  // --- REQUEST INTERCEPTOR ---
+  api.interceptors.request.use(async (config) => {
+    // 1. Show Loading
+    Loading.show({
+      spinner: QSpinnerGears,
+      message: 'Loading. Please wait...'
+    })
+
+    // Testing timeout (Remove after testing)
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    // 3. Auth Token logic
+    const authStore = userAuthStore()
+    if (authStore.token) {
+      config.headers.Authorization = `Bearer ${authStore.token}`
+    }
+
+    return config
+  }, (error) => {
+    Loading.hide()
+    return Promise.reject(error)
+  })
+
+  // --- RESPONSE INTERCEPTOR ---
+  api.interceptors.response.use(
+    (response) => {
+      Loading.hide()
+      return response
+    },
+    (error) => {
+      Loading.hide()
+      
+      if (error.response?.status === 401) {
+        const authStore = userAuthStore()
+        authStore.logout()
+        window.location.href = '/login'
+      }
+      return Promise.reject(error)
+    }
+  )
 
   app.config.globalProperties.$axios = axios
-  // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
-  //       so you won't necessarily have to import axios in each vue file
-
   app.config.globalProperties.$api = api
-  // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
-  //       so you can easily perform requests against your app's API
 })
 
 export { api }

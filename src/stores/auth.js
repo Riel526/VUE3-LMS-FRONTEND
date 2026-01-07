@@ -1,30 +1,35 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { renderToast } from 'src/utils/notify'
 import { api } from 'src/boot/axios'
-import { fasBullseye } from '@quasar/extras/fontawesome-v6'
 
 
 export const userAuthStore = defineStore('auth', {
   state: () => ({
     user: '',
-    loading: fasBullseye
+    token: localStorage.getItem('token') || null
   }),
 
   actions: {
     async loginUser(credentials) {
-      this.loading = true
       try {
         const response = await api.post('/login', credentials)
         
         this.user = response.data.user
+        this.token = response.data.token
 
-        renderToast('success', 'Login Success', 'Logged in Successfully')
+        localStorage.setItem('token', this.token)
+        return response.data
       } catch (error) {
-        const message = error.response?.data?.message || 'Login failed'
-        renderToast('error', 'Error', message)
-      } finally {
-        this.loading = false
+        return {
+        success: false,
+        status: error.response?.status || 500,
+        message: error.response?.data?.message || 'Server connection failed'
+        }
       }
+    },
+    logout() {
+      this.token = null
+      this.user = null
+      localStorage.removeItem('token')
     }
   }
 })

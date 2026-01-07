@@ -1,37 +1,41 @@
 <template>
 <q-layout>
     <q-page-container>
-      <q-page class="row flex-center">
-        <q-card class="q-pa-lg" style="width:350px">
-          <q-card-section>
-            <div class="text-h6 text-center">Login</div>
-          </q-card-section>
-          <q-card-section>
-            <q-input
-            v-model="username"
-            label="Username"
-            type="text"
-            outlined
-            class="q-mb-md"
-            />
-            <q-input 
-            v-model="password"
-            label="Password"
-            type="password"
-            outlined
-            />
-          </q-card-section>
-          <q-card-actions>
-            <q-btn 
-            label="Login"
-            color="primary"
-            class="full-width q-mb-sm"
-            @click="login"
-            />
-            <p>Don't have an account? <span class="signup" @click="signup(true)">Sign up now</span> </p>
-          </q-card-actions>
-        </q-card>
-      </q-page>
+      <q-form @submit.prevent="login">
+        <q-page class="row flex-center">
+          <q-card class="q-pa-lg" style="width:350px">
+            <q-card-section>
+              <div class="text-h6 text-center">Login</div>
+            </q-card-section>
+            <q-card-section>
+              <q-input
+              v-model="username"
+              label="Username"
+              type="text"
+              outlined
+              class="q-mb-md"
+              :rules="usernameRules"
+              />
+              <q-input 
+              v-model="password"
+              label="Password"
+              type="password"
+              outlined
+              :rules="passwordRules"
+              />
+            </q-card-section>
+            <q-card-actions>
+              <q-btn 
+              label="Login"
+              color="primary"
+              class="full-width q-mb-sm"
+              type="submit"
+              />
+              <p>Don't have an account? <span class="signup" @click="signup(true)">Sign up now</span> </p>
+            </q-card-actions>
+          </q-card>
+        </q-page>
+      </q-form>
       <SignupModal 
       v-model="signupDialog" 
       @register="handleRegister"
@@ -52,6 +56,16 @@ const password = ref('')
 const auth = userAuthStore()
 
 const signupDialog = ref(false)
+
+const usernameRules = [
+  val => (val && val.length > 0) || 'Field is required'
+]
+
+// You can also make specific ones
+const passwordRules = [
+  val => !!val || 'Password is required',
+  val => val.length >= 6 || 'Password must be at least 6 characters'
+]
 
 
 const login = async () => {

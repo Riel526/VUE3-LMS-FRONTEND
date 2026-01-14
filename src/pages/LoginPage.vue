@@ -50,15 +50,18 @@ import { ref } from 'vue'
 import SignupModal from 'src/components/SignupModal.vue'
 import { renderToast } from 'src/utils/notify'
 import { userAuthStore } from 'src/stores/auth'
+import { registerStore } from 'src/stores/register'
 
 const username = ref('')
 const password = ref('')
 const auth = userAuthStore()
+const register = registerStore()
 
 const signupDialog = ref(false)
 
 const usernameRules = [
-  val => (val && val.length > 0) || 'Field is required'
+  val => !!val || 'Username is required',
+  val => val && val.length >= 4 || 'Username must be atleast 4 characters'
 ]
 
 // You can also make specific ones
@@ -74,13 +77,13 @@ const login = async () => {
     try {
       const res = await auth.loginUser({
         username: username.value,
-        password: password.value
+        password: password.value,
       })
 
-      if (res.status === 200) {
-      renderToast('success', `Success (${res.status})`, res.message || 'Logged in Successfully')
+      if (res.data.status === 200) {
+      renderToast('success', `Success (${res.data.status})`, res.data.message || 'Logged in Successfully')
       } else {
-        renderToast('error', `Error (${res.status})`, res.message || 'Log in Failed')
+        renderToast('error', `Error (${res.data.status})`, res.data.message || 'Log in Failed')
       }
     } catch (err) {
       renderToast('err', 'Login Failed', err.message || 'Something went wrong. Please refresh the page and try again')
@@ -91,8 +94,23 @@ const signup = (state) => {
   signupDialog.value = state
 }
 
-const handleRegister = (data) => {
-  console.log(data)
+const handleRegister = async (data) => {
+  try {
+    const res = await register.registerUser({
+      username: data.username,
+      password: data.password,
+      role: data.role
+    })
+
+    if (res.data.status === 200) {
+      renderToast('success', `Success (${res.data.status})`, res.data.message || 'User Registered Successfully')
+      signup(false)
+    } else {
+      renderToast('error', `Error (${res.data.status})`, res.data.message || 'User Registration Failed')
+    }
+  } catch (err) {
+    renderToast('error', 'Register Failed', err.message || 'Something went wrong. Please refresh the page and try again')
+  }
 }
 
 </script>

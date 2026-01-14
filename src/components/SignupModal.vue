@@ -16,35 +16,44 @@ persistent
 				/>
 				<div class="text-h6 text-center">Signup</div>
 			</q-card-section>
-			<q-card-section>
-				<q-input
-				v-model="username"
-				label="Username"
-				type="text"
-				outlined
-				class="q-mb-md"
-				/>
-				<q-input 
-				v-model="password"
-				label="Password"
-				type="password"
-				outlined
-				class="q-mb-md"
-				/>
-				<q-input 
-				v-model="confirmPassword"
-				label="Confirm Password"
-				type="password"
-				outlined  
-				/>
-			</q-card-section> 
-			<q-card-actions align="right">
-				<q-btn 
-				label="Register"
-				color="primary"
-				@click="register"
-				/>
-			</q-card-actions>
+			<q-form @submit.prevent="register">
+				<q-card-section>
+					<q-input
+					v-model="username"
+					label="Username"
+					type="text"
+					outlined
+					class="q-mb-md"
+					:rules="usernameRules"
+					/>
+					<q-input 
+					v-model="password"
+					label="Password"
+					type="password"
+					outlined
+					class="q-mb-md"
+					:rules="passwordRules"
+					/>
+					<q-input 
+					v-model="confirmPassword"
+					label="Confirm Password"
+					type="password"
+					outlined
+					:rules="confirmPasswordRules"
+					/>
+					<div class="q-gutter-sm" align="right">
+						<q-radio dense v-model="role" val="student" label="Student" />
+						<q-radio dense v-model="role" val="teacher" label="Teacher" />
+					</div>
+				</q-card-section>
+				<q-card-actions align="right">
+					<q-btn 
+					label="Register"
+					color="primary"
+					type="submit"
+					/>
+				</q-card-actions>
+			</q-form>
 		</q-card>
 </q-dialog>
 </template>
@@ -59,6 +68,7 @@ defineProps({
 const username = ref('')
 const password = ref('')
 const confirmPassword = ref('')
+const role = ref('student')
 
 
 const emit = defineEmits([
@@ -74,8 +84,24 @@ const register = () => {
 	emit('register',
 		{
 			username: username.value,
-			password: password.value
+			password: password.value,
+			role: role.value
 		}
 	)
 }
+
+const usernameRules = [
+	val => !!val || 'Username is required',
+  val => val && val.length >= 4 || 'Username must be atleast 4 characters'
+]
+
+const passwordRules = [
+	val => !!val || 'Password in required',
+	val => val.length >= 6 || 'Password must be at least 6 characters'
+]
+
+const confirmPasswordRules = [
+	val => !!val || 'Confirm Password is required',
+	val => val === password.value || 'Passwords do not match'
+]
 </script>

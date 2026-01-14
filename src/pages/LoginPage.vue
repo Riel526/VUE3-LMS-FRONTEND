@@ -78,9 +78,9 @@ const login = async () => {
       })
 
       if (res.status === 200) {
-      renderToast('success', `Success (${res.status})`, 'Logged in Successfully')
+      renderToast('success', `Success (${res.status})`, res.message || 'Logged in Successfully')
       } else {
-        renderToast('error', `Error (${res.status})`, 'Log in Failed')
+        renderToast('error', `Error (${res.status})`, res.message || 'Log in Failed')
       }
     } catch (err) {
       renderToast('err', 'Login Failed', err.message || 'Something went wrong. Please refresh the page and try again')

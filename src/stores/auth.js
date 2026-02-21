@@ -4,9 +4,13 @@ import { api } from 'src/boot/axios'
 
 export const userAuthStore = defineStore('auth', {
   state: () => ({
-    user: '',
+    user: null,
     token: localStorage.getItem('token') || null
   }),
+
+  getters: {
+    isAuthenticated: (state) => !!state.token
+  },
 
   actions: {
     async loginUser(credentials) {

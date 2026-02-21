@@ -2,38 +2,57 @@
 <q-layout>
     <q-page-container>
       <q-form @submit.prevent="login">
-        <q-page class="row flex-center">
-          <q-card class="q-pa-lg" style="width:350px">
-            <q-card-section>
-              <div class="text-h6 text-center">Login</div>
-            </q-card-section>
-            <q-card-section>
-              <q-input
-              v-model="username"
-              label="Username"
-              type="text"
-              outlined
-              class="q-mb-md"
-              :rules="usernameRules"
-              />
-              <q-input 
-              v-model="password"
-              label="Password"
-              type="password"
-              outlined
-              :rules="passwordRules"
-              />
-            </q-card-section>
-            <q-card-actions>
-              <q-btn 
-              label="Login"
-              color="primary"
-              class="full-width q-mb-sm"
-              type="submit"
-              />
-              <p>Don't have an account? <span class="signup" @click="signup(true)">Sign up now</span> </p>
-            </q-card-actions>
-          </q-card>
+        <q-page class="row items-center justify-center login-bg">
+            <q-card class="login-card shadow-10">
+              <div class="row full-height">
+                  <div class="col-12 col-md-6 left-panel column justify-center q-pa-xl">
+                      <!-- LOGO -->
+                      <q-img
+                        :src="logo"
+                        width="140px"
+                        fit="contain"
+                        class="q-mb-xl"
+                      />
+
+                      <!-- TITLE -->
+                      <div class="text-overline text-weight-bold q-mb-sm">
+                        Welcome Back
+                      </div>
+                      <div class="text-h4 text-weight-bold q-mb-sm">Eden Christian School Portal</div>
+                      <div class="text-subtitle2 q-mb-lg">
+                        School Portal Access
+                      </div>
+                      <div class="text-subtitle1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo</div>
+                  </div>
+                <div class="col-12 col-md-6 column justify-center q-pa-xl">
+                    <div class="text-h5 text-weight-medium q-mb-lg text-center">Login</div>
+                    <q-input
+                    v-model="username"
+                    label="Username"
+                    type="text"
+                    outlined
+                    class="q-mb-md"
+                    :rules="usernameRules"
+                    />
+                    <q-input 
+                    v-model="password"
+                    label="Password"
+                    type="password"
+                    outlined
+                    :rules="passwordRules"
+                    />
+                  <q-card-actions>
+                    <q-btn 
+                    label="Login"
+                    color="primary"
+                    class="full-width q-mb-sm"
+                    type="submit"
+                    />
+                    <p>Don't have an account? <span class="signup" @click="signup(true)">Sign up now</span> </p>
+                  </q-card-actions>
+                  </div>
+              </div>
+            </q-card>
         </q-page>
       </q-form>
       <SignupModal 
@@ -51,6 +70,7 @@ import SignupModal from 'src/components/SignupModal.vue'
 import { renderToast } from 'src/utils/notify'
 import { userAuthStore } from 'src/stores/auth'
 import { registerStore } from 'src/stores/register'
+import logo from 'src/assets/Logo.png'
 
 const username = ref('')
 const password = ref('')
@@ -80,10 +100,12 @@ const login = async () => {
         password: password.value,
       })
 
-      if (res.data.status === 200) {
-      renderToast('success', `Success (${res.data.status})`, res.data.message || 'Logged in Successfully')
+      console.log('haha', res)
+
+      if (res.status === 200) {
+      renderToast('success', `Success (${res.status})`, res.message || 'Logged in Successfully')
       } else {
-        renderToast('error', `Error (${res.data.status})`, res.data.message || 'Log in Failed')
+        renderToast('error', `Error (${res.status})`, res.message || 'Log in Failed')
       }
     } catch (err) {
       renderToast('err', 'Login Failed', err.message || 'Something went wrong. Please refresh the page and try again')
@@ -103,10 +125,10 @@ const handleRegister = async (data) => {
     })
 
     if (res.data.status === 200) {
-      renderToast('success', `Success (${res.data.status})`, res.data.message || 'User Registered Successfully')
+      renderToast('success', `Success (${res.status})`, res.data.message || 'User Registered Successfully')
       signup(false)
     } else {
-      renderToast('error', `Error (${res.data.status})`, res.data.message || 'User Registration Failed')
+      renderToast('error', `Error (${res.status})`, res.data.message || 'User Registration Failed')
     }
   } catch (err) {
     renderToast('error', 'Register Failed', err.message || 'Something went wrong. Please refresh the page and try again')
@@ -120,4 +142,33 @@ const handleRegister = async (data) => {
   text-decoration: underline;
   cursor: pointer;
 }
+
+.login-card {
+  width: 900px;
+  max-width: 95%;
+  min-height: 520px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+}
+
+.left-panel {
+  background: linear-gradient(135deg, #1976D2, #42A5F5);
+  color: white;
+}
+
+.signup {
+  color: #1976D2;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.signup:hover {
+  text-decoration: underline;
+}
+
+.login-bg {
+  background: linear-gradient(135deg, #eef2f7 0%, #dbeafe 100%);
+}
+
 </style>

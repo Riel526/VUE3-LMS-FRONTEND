@@ -15,7 +15,7 @@ export const userAuthStore = defineStore('auth', {
   actions: {
     async loginUser(credentials) {
       try {
-        const response = await api.post('api/auth/login', credentials)
+        const response = await api.post('/auth/login', credentials)
         
         this.user = response.data.user
         this.token = response.data.token

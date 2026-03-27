@@ -70,12 +70,14 @@ import SignupModal from 'src/components/SignupModal.vue'
 import { renderToast } from 'src/utils/notify'
 import { userAuthStore } from 'src/stores/auth'
 import { registerStore } from 'src/stores/register'
+import { useRouter } from 'vue-router'
 import logo from 'src/assets/Logo.png'
 
 const username = ref('')
 const password = ref('')
 const auth = userAuthStore()
 const register = registerStore()
+const router = useRouter()
 
 const signupDialog = ref(false)
 
@@ -104,6 +106,7 @@ const login = async () => {
 
       if (res.status === 200) {
       renderToast('success', `Success (${res.status})`, res.message || 'Logged in Successfully')
+      router.push('/dashboard')  
       } else {
         renderToast('error', `Error (${res.status})`, res.message || 'Log in Failed')
       }

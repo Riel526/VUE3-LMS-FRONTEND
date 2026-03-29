@@ -1,7 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Loading, QSpinnerGears } from 'quasar'
-import { userAuthStore } from 'src/stores/auth'
+import { userAuthStore } from 'src/stores/login/auth'
 
 const api = axios.create({ 
   baseURL: import.meta.env.VITE_QUASAR_API_URL_LOCAL 

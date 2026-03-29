@@ -44,7 +44,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { userAuthStore } from 'src/stores/auth'
+import { userAuthStore } from 'src/stores/login/auth'
 import { useRouter } from 'vue-router'
 
 const leftDrawerOpen = ref(false)

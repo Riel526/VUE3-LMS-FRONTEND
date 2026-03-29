@@ -68,8 +68,8 @@
 import { ref } from 'vue'
 import SignupModal from 'src/components/SignupModal.vue'
 import { renderToast } from 'src/utils/notify'
-import { userAuthStore } from 'src/stores/auth'
-import { registerStore } from 'src/stores/register'
+import { userAuthStore } from 'src/stores/login/auth'
+import { registerStore } from 'src/stores/login/register'
 import { useRouter } from 'vue-router'
 import logo from 'src/assets/Logo.png'
 
@@ -102,8 +102,6 @@ const login = async () => {
         password: password.value,
       })
 
-      console.log('haha', res)
-
       if (res.status === 200) {
       renderToast('success', `Success (${res.status})`, res.message || 'Logged in Successfully')
       router.push('/dashboard')  
@@ -124,14 +122,18 @@ const handleRegister = async (data) => {
     const res = await register.registerUser({
       username: data.username,
       password: data.password,
+      email: data.email,
+      first_name: data.first_name,
+      middle_name: data.middle_name,
+      last_name: data.last_name,
       role: data.role
     })
 
-    if (res.data.status === 200) {
+    if (res.data.code > 200 && res.data.code < 299) {
       renderToast('success', `Success (${res.status})`, res.data.message || 'User Registered Successfully')
       signup(false)
     } else {
-      renderToast('error', `Error (${res.status})`, res.data.message || 'User Registration Failed')
+      renderToast('error', `Error (${res.data.status})`, res.data.errors || 'User Registration Failed')
     }
   } catch (err) {
     renderToast('error', 'Register Failed', err.message || 'Something went wrong. Please refresh the page and try again')

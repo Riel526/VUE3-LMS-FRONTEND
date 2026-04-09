@@ -1,8 +1,7 @@
 <template>
 <q-dialog 
-persistent 
-:model-value="modelValue"
-@update:model-value="emit('update:modelValue', $event)"
+persistent
+v-model="rStore.showModal"
 >
 	<q-card style="width:1000px; max-width: 90vw" class="q-pa-md">
 			<q-card-section>
@@ -16,37 +15,37 @@ persistent
 				/>
 				<div class="text-h6 text-center">Signup</div>
 			</q-card-section>
-			<q-form @submit.prevent="register">
+			<q-form @submit.prevent="ExecuteRegister">
 			<q-card-section>
 				<div class="row q-col-gutter-md">
 					<div class="col-12 col-sm-6 col-md-3">
-						<q-input v-model="username" label="Username" outlined :rules="usernameRules" />
+						<q-input v-model="rStore.form.username" label="Username" outlined :rules="usernameRules" />
 					</div>
 					<div class="col-12 col-sm-6 col-md-3">
-						<q-input v-model="email" label="Email" outlined :rules="emailRules" />
+						<q-input v-model="rStore.form.email" label="Email" outlined :rules="emailRules" />
 					</div>
 					<div class="col-12 col-sm-6 col-md-3">
-						<q-input v-model="password" label="Password" type="password" outlined :rules="passwordRules" />
+						<q-input v-model="rStore.form.password" label="Password" type="password" outlined :rules="passwordRules" />
 					</div>
 					<div class="col-12 col-sm-6 col-md-3">
-						<q-input v-model="confirmPassword" label="Confirm Password" type="password" outlined :rules="confirmPasswordRules" />
+						<q-input v-model="rStore.form.confirmPassword" label="Confirm Password" type="password" outlined :rules="confirmPasswordRules" />
 					</div>
 
 					<div class="col-12 col-md-3">
-						<q-input v-model="firstName" label="First Name" outlined :rules="requiredRules" />
+						<q-input v-model="rStore.form.firstName" label="First Name" outlined :rules="requiredRules" />
 					</div>
 					<div class="col-12 col-md-3">
-						<q-input v-model="middleName" label="Middle Name" outlined class="q-mb-lg" />
+						<q-input v-model="rStore.form.middleName" label="Middle Name" outlined class="q-mb-lg" />
 					</div>
 					<div class="col-12 col-md-3">
-						<q-input v-model="lastName" label="Last Name" outlined :rules="requiredRules" />
+						<q-input v-model="rStore.form.lastName" label="Last Name" outlined :rules="requiredRules" />
 					</div>
 				</div>
 			</q-card-section>
 				<q-card-section>
 				<div class="q-gutter-sm" align="right">
-						<q-radio dense v-model="role" val="student" label="Student" />
-						<q-radio dense v-model="role" val="teacher" label="Teacher" />
+						<q-radio dense v-model="rStore.form.role" val="student" label="Student" />
+						<q-radio dense v-model="rStore.form.role" val="teacher" label="Teacher" />
 				</div>
 				</q-card-section>
 				<q-card-actions align="right">
@@ -62,51 +61,39 @@ persistent
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
-defineProps({
-	modelValue: Boolean
-})
-
-const username = ref('')
-const password = ref('')
-const confirmPassword = ref('')
-const role = ref('student')
-const email = ref('')
-const firstName = ref('')
-const middleName = ref('')
-const lastName = ref('')
+import { registerStore } from 'src/stores/login/register'
+import { renderToast } from 'src/utils/notify'
 
 
-const emit = defineEmits([
-	'update:modelValue',
-	'register'
-])
-
+const rStore = registerStore()
 const close = () => {
-	username.value = ''
-	password.value = ''
-	confirmPassword.value = '',
-	role.value = 'student'
-	email.value = ''
-	firstName.value = ''
-	middleName.value = ''
-	lastName.value = ''
-	emit('update:modelValue', false)
+	rStore.resetForm()
+	rStore.showModal = false
+
 }
 
-const register = () => {
-	emit('register',
-		{
-			username: username.value,
-			password: password.value,
-			first_name: firstName.value,
-			middle_name: middleName.value,
-			last_name: lastName.value,
-			email: email.value,
-			role: role.value
-		}
-	)
+const ExecuteRegister = async () => {
+  try {
+    const res = await rStore.registerUser({
+      username: rStore.form.username,
+      password: rStore.form.password,
+      email: rStore.form.email,
+      first_name: rStore.form.firstName,
+      middle_name: rStore.form.middleName,
+      last_name: rStore.form.lastName,
+      role: rStore.form.role
+    })
+
+    if (res.data.code > 200 && res.data.code < 299) {
+      renderToast('success', `Success (${res.status})`, res.data.message || 'User Registered Successfully')
+			rStore.showModal = false
+			rStore.resetForm()
+    } else {
+      renderToast('error', `Error (${res.data.status})`, res.data.errors || 'User Registration Failed')
+    }
+  } catch (err) {
+    renderToast('error', 'Register Failed', err.message || 'Something went wrong. Please refresh the page and try again')
+  }
 }
 
 const usernameRules = [
@@ -146,6 +133,6 @@ const passwordRules = [
 
 const confirmPasswordRules = [
 	val => !!val || 'Confirm Password is required',
-	val => val === password.value || 'Passwords do not match'
+	val => val === rStore.form.password || 'Passwords do not match'
 ]
 </script>

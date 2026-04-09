@@ -2,7 +2,30 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 import { api } from 'src/boot/axios'
 
 export const registerStore = defineStore('register', {
+  state: () => ({
+    showModal: false,
+    form: {
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      role: 'student'
+    }
+  }),
   actions: {
+    resetForm() {
+      this.form.username = ''
+      this.form.email = ''
+      this.form.password = ''
+      this.form.confirmPassword = ''
+      this.form.firstName = ''
+      this.form.middleName = ''
+      this.form.lastName = ''
+      this.form.role = 'student'
+    },
     async registerUser(data) {
       try {
         const res = await api.post('/auth/register', data)

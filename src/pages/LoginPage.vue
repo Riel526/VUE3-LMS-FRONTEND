@@ -56,8 +56,6 @@
         </q-page>
       </q-form>
       <SignupModal 
-      v-model="signupDialog" 
-      @register="handleRegister"
       />
     </q-page-container>
   </q-layout>
@@ -79,7 +77,6 @@ const auth = userAuthStore()
 const register = registerStore()
 const router = useRouter()
 
-const signupDialog = ref(false)
 
 const usernameRules = [
   val => !!val || 'Username is required',
@@ -114,31 +111,10 @@ const login = async () => {
 }
 
 const signup = (state) => {
-  signupDialog.value = state
+  register.showModal = state
+  register.resetForm()
 }
 
-const handleRegister = async (data) => {
-  try {
-    const res = await register.registerUser({
-      username: data.username,
-      password: data.password,
-      email: data.email,
-      first_name: data.first_name,
-      middle_name: data.middle_name,
-      last_name: data.last_name,
-      role: data.role
-    })
-
-    if (res.data.code > 200 && res.data.code < 299) {
-      renderToast('success', `Success (${res.status})`, res.data.message || 'User Registered Successfully')
-      signup(false)
-    } else {
-      renderToast('error', `Error (${res.data.status})`, res.data.errors || 'User Registration Failed')
-    }
-  } catch (err) {
-    renderToast('error', 'Register Failed', err.message || 'Something went wrong. Please refresh the page and try again')
-  }
-}
 
 </script>
 <style>

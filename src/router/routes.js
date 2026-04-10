@@ -15,6 +15,7 @@ const routes = [
   {
     path: '/dashboard',
     component: () => import('layouts/DashBoard.vue'),
+    meta: { requiresAuth: true }
   },
 
   // Always leave this as last one,

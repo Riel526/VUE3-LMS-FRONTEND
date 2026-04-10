@@ -104,7 +104,7 @@ const login = async () => {
       if (res.code === 200) {
       renderToast('success', `Success (${res.code})`, res.message || 'Logged in Successfully')
       router.push('/dashboard')  
-      user.setCurrUser(res.data.user)
+      user.setCurrUser(res.data)
       } else {
         renderToast('error', `Error (${res.code})`, res.message || 'Log in Failed')
       }

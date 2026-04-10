@@ -3,11 +3,6 @@ import { api } from 'src/boot/axios'
 
 
 export const userAuthStore = defineStore('auth', {
-  state: () => ({
-    user: null,
-    token: localStorage.getItem('token') || null
-  }),
-
   getters: {
     isAuthenticated: (state) => !!state.token
   },
@@ -20,7 +15,6 @@ export const userAuthStore = defineStore('auth', {
         this.user = response.data.user
         this.token = response.data.token
 
-        localStorage.setItem('token', this.token)
         return response.data
       } catch (error) {
         return {
@@ -29,11 +23,6 @@ export const userAuthStore = defineStore('auth', {
         message: error.response?.data?.message || 'Server connection failed'
         }
       }
-    },
-    logout() {
-      this.token = null
-      this.user = null
-      localStorage.removeItem('token')
     }
   }
 })

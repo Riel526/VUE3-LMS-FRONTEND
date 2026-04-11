@@ -1,13 +1,11 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf">
 
-    <q-header elevated class="bg-primary text-white">
-  <q-toolbar>
-    <q-btn flat dense round icon="menu" @click="toggleLeftDrawer" />
-    <q-toolbar-title>Eden Christian School</q-toolbar-title>
-
-    <q-space />
-
+  <q-header elevated class="bg-primary text-white q-pa-sm">
+    <q-toolbar>
+      <q-btn flat dense round icon="menu" @click="toggleLeftDrawer" />
+      <q-toolbar-title>Eden Christian School</q-toolbar-title>
+      <q-space />
         <q-btn-dropdown flat no-caps :label="currUser?.userData?.first_name">
           <q-list style="min-width: 150px">
             <q-item clickable v-close-popup @click="router.push('/profile')">
@@ -24,12 +22,33 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="bg-grey-1">
+    <q-drawer 
+      v-model="leftDrawerOpen" 
+      show-if-above bordered 
+      class="bg-grey-1" 
+      :width="280" 
+      :breakpoint="700" 
+      :behavior="$q.screen.lt.md ? 'mobile' : 'desktop'">
       <q-scroll-area class="fit">
-        
         <div class="q-pa-md bg-primary text-white">
-          <div class="text-weight-bold">{{ currUser?.userData?.first_name }} {{ currUser?.userData?.last_name }}</div>
-          <div class="text-caption">Role: {{ currUser?.userData?.role }}</div>
+          <div class="row justify-end lt-md" v-if="$q.screen.lt.md">
+            <q-btn 
+            flat 
+            round 
+            dense 
+            icon="close" 
+            @click="leftDrawerOpen = false" 
+            />
+          </div>
+
+          <div class="column q-mt-xs">
+            <div class="text-h6 text-weight-bold">
+              {{ currUser.userData?.first_name }} {{ currUser.userData?.last_name }}
+            </div>
+            <div class="text-caption" style="opacity: 0.8; text-transform: uppercase;">
+              {{ currUser.userData?.role }}
+            </div>
+          </div>
         </div>
 
         <q-list padding>

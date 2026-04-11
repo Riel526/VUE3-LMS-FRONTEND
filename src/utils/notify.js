@@ -21,7 +21,7 @@ export const renderToast = (status, message, caption) => {
         message: message,
         caption: formatCaption || caption,
         html: true,
-        color: status === 'success' ? 'primary' : status === 'error' ? 'negative' : 'secondary',
+        color: status === 'success' ? 'primary' : status === 'error' ? 'negative' : 'info',
         timeout: 4000,
         actions: [
             {

@@ -12,7 +12,8 @@ export const registerStore = defineStore('register', {
       firstName: '',
       middleName: '',
       lastName: '',
-      role: 'student'
+      role: 'student',
+      birthDate: ''
     }
   }),
   actions: {
@@ -25,6 +26,7 @@ export const registerStore = defineStore('register', {
       this.form.middleName = ''
       this.form.lastName = ''
       this.form.role = 'student'
+      this.form.birthDate = 'student'
     },
     async registerUser(data) {
       try {

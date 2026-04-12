@@ -15,7 +15,11 @@ const routes = [
   {
     path: '/dashboard',
     component: () => import('layouts/DashBoard.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    children: [
+      { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: '/students', component: () => import('pages/modules/StudentsPage.vue') }
+    ]
   },
 
   // Always leave this as last one,

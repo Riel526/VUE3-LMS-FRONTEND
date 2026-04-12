@@ -1,63 +1,74 @@
 <template>
-<q-dialog 
-persistent
-v-model="rStore.showModal"
->
-	<q-card style="width:1000px; max-width: 90vw" class="q-pa-md">
-			<q-card-section>
-				<q-btn 
-				class="text absolute-top-right"
-				icon="close"
-				flat
-				round
-				dense
-				@click="close"
-				/>
-				<div class="text-h6 text-center">Signup</div>
-			</q-card-section>
-			<q-form @submit.prevent="ExecuteRegister">
-			<q-card-section>
-				<div class="row q-col-gutter-md">
-					<div class="col-12 col-sm-6 col-md-3">
-						<q-input v-model="rStore.form.username" label="Username" outlined :rules="usernameRules" />
-					</div>
-					<div class="col-12 col-sm-6 col-md-3">
-						<q-input v-model="rStore.form.email" label="Email" outlined :rules="emailRules" />
-					</div>
-					<div class="col-12 col-sm-6 col-md-3">
-						<q-input v-model="rStore.form.password" label="Password" type="password" outlined :rules="passwordRules" />
-					</div>
-					<div class="col-12 col-sm-6 col-md-3">
-						<q-input v-model="rStore.form.confirmPassword" label="Confirm Password" type="password" outlined :rules="confirmPasswordRules" />
-					</div>
+  <q-dialog persistent v-model="rStore.showModal">
+    <q-card style="width:1000px; max-width: 95vw" class="q-pa-none overflow-hidden">
+      <q-card-section class="bg-primary text-white q-pa-lg">
+        <div class="row items-center no-wrap">
+          <div class="col">
+            <div class="text-h5 text-weight-bold">Create Account</div>
+            <div class="text-caption text-blue-1">Eden Christian School Portal</div>
+          </div>
+          <div class="col-auto">
+            <q-btn icon="close" flat round dense @click="close" />
+          </div>
+        </div>
+      </q-card-section>
 
-					<div class="col-12 col-md-3">
-						<q-input v-model="rStore.form.firstName" label="First Name" outlined :rules="requiredRules" />
-					</div>
-					<div class="col-12 col-md-3">
-						<q-input v-model="rStore.form.middleName" label="Middle Name" outlined class="q-mb-lg" />
-					</div>
-					<div class="col-12 col-md-3">
-						<q-input v-model="rStore.form.lastName" label="Last Name" outlined :rules="requiredRules" />
-					</div>
-				</div>
-			</q-card-section>
-				<q-card-section>
-				<div class="q-gutter-sm" align="right">
-						<q-radio dense v-model="rStore.form.role" val="student" label="Student" />
-						<q-radio dense v-model="rStore.form.role" val="teacher" label="Teacher" />
-				</div>
-				</q-card-section>
-				<q-card-actions align="right">
-					<q-btn 
-					label="Register"
-					color="primary"
-					type="submit"
-					/>
-				</q-card-actions>
-			</q-form>
-		</q-card>
-</q-dialog>
+      <q-form @submit.prevent="ExecuteRegister">
+        <q-card-section class="q-pa-lg">
+          <div class="text-overline text-primary q-mb-sm">Account Credentials</div>
+          <div class="row q-col-gutter-md">
+            <div class="col-12 col-sm-6 col-md-3">
+              <q-input v-model="rStore.form.username" label="Username" outlined dense :rules="usernameRules" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+              <q-input v-model="rStore.form.email" label="Email" outlined dense :rules="emailRules" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+              <q-input v-model="rStore.form.password" label="Password" type="password" outlined dense :rules="passwordRules" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+              <q-input v-model="rStore.form.confirmPassword" label="Confirm Password" type="password" outlined dense :rules="confirmPasswordRules" />
+            </div>
+          </div>
+
+          <q-separator class="q-my-lg" />
+
+          <div class="text-overline text-primary q-mb-sm">Personal Information</div>
+          <div class="row q-col-gutter-md">
+            <div class="col-12 col-md-4">
+              <q-input v-model="rStore.form.firstName" label="First Name" outlined dense :rules="requiredRules" />
+            </div>
+            <div class="col-12 col-md-4">
+              <q-input v-model="rStore.form.middleName" label="Middle Name" outlined dense />
+            </div>
+            <div class="col-12 col-md-4">
+              <q-input v-model="rStore.form.lastName" label="Last Name" outlined dense :rules="requiredRules" />
+            </div>
+          </div>
+        </q-card-section>
+
+        <q-card-section class="bg-blue-1 q-mx-lg q-mb-lg rounded-borders">
+          <div class="row items-center">
+            <div class="text-subtitle2 q-mr-md text-grey-8">Register as:</div>
+            <div class="q-gutter-sm">
+              <q-radio dense v-model="rStore.form.role" val="student" label="Student" />
+              <q-radio dense v-model="rStore.form.role" val="teacher" label="Teacher" />
+            </div>
+          </div>
+        </q-card-section>
+
+        <q-card-actions align="right" class="bg-grey-2 q-pa-md">
+          <q-btn flat label="Cancel" color="grey-7" @click="close" />
+          <q-btn 
+            label="Register Account" 
+            color="primary" 
+            type="submit" 
+            class="q-px-lg text-weight-bold" 
+          />
+        </q-card-actions>
+      </q-form>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script setup>

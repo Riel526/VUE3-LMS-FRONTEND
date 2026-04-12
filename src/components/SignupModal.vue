@@ -35,15 +35,30 @@
 
           <div class="text-overline text-primary q-mb-sm">Personal Information</div>
           <div class="row q-col-gutter-md">
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-3">
               <q-input v-model="rStore.form.firstName" label="First Name" outlined dense :rules="requiredRules" />
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-3">
               <q-input v-model="rStore.form.middleName" label="Middle Name" outlined dense />
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-3">
               <q-input v-model="rStore.form.lastName" label="Last Name" outlined dense :rules="requiredRules" />
             </div>
+						<div class="col-12 col-md-3">
+							<q-input v-model="rStore.form.birthDate" label="Birth Date" outlined dense mask="date" :rules="['date']">
+								<template v-slot:append>
+									<q-icon name="event" class="cursor-pointer">
+										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+											<q-date v-model="rStore.form.birthDate">
+												<div class="row items-center justify-end">
+													<q-btn v-close-popup label="Close" color="primary" flat />
+												</div>
+											</q-date>
+										</q-popup-proxy>
+									</q-icon>
+								</template>
+							</q-input>
+						</div>
           </div>
         </q-card-section>
 
@@ -92,7 +107,8 @@ const ExecuteRegister = async () => {
       first_name: rStore.form.firstName,
       middle_name: rStore.form.middleName,
       last_name: rStore.form.lastName,
-      role: rStore.form.role
+      role: rStore.form.role,
+			birth_date: rStore.form.birthDate
     })
 
     if (res.data.code > 200 && res.data.code < 299) {

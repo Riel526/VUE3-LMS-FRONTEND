@@ -109,7 +109,7 @@ const login = async () => {
         renderToast('error', `Error (${res.code})`, res.message || 'Log in Failed')
       }
     } catch (err) {
-      renderToast('err', 'Login Failed', err.message || 'Something went wrong. Please refresh the page and try again')
+      renderToast('error', 'Login Failed', err.message || 'Something went wrong. Please refresh the page and try again')
     }
 }
 

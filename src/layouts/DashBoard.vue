@@ -108,6 +108,7 @@
 import { ref } from 'vue'
 import { currUserStore } from 'src/stores/user/user'
 import { useRouter } from 'vue-router'
+import { renderToast } from 'src/utils/notify'
 
 const leftDrawerOpen = ref(false)
 const currUser = currUserStore()
@@ -119,6 +120,7 @@ const toggleLeftDrawer = () => {
 
 const logout = () => {
   currUser.logout()
+  renderToast('Info', 'Info', 'Logout Successful')
   router.push('/login')
 }
 </script>

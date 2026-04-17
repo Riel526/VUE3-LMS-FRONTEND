@@ -2,7 +2,6 @@ import { Notify } from 'quasar'
 
 export const renderToast = (status, message, caption) => {
 
-    console.log('zxc', caption)
     let formatCaption
     if (typeof caption === 'string') {
         formatCaption = caption
@@ -21,7 +20,7 @@ export const renderToast = (status, message, caption) => {
         message: message,
         caption: formatCaption || caption,
         html: true,
-        color: status === 'success' ? 'primary' : status === 'error' ? 'negative' : 'info',
+        color: status === 'success' ? 'positive' : status === 'error' ? 'negative' : 'info',
         timeout: 4000,
         actions: [
             {

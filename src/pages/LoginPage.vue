@@ -133,16 +133,18 @@ const signup = (state) => {
   min-height: 520px;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  background: white;
 }
 
 .left-panel {
-  background: linear-gradient(135deg, #1976D2, #42A5F5);
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
   color: white;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .signup {
-  color: #1976D2;
+  color: #3b82f6;
   font-weight: 500;
   cursor: pointer;
 }
@@ -151,8 +153,13 @@ const signup = (state) => {
   text-decoration: underline;
 }
 
+.text-overline {
+  color: #94a3b8;
+  letter-spacing: 2px;
+}
+
 .login-bg {
-  background: linear-gradient(135deg, #eef2f7 0%, #dbeafe 100%);
+  background: radial-gradient(circle at top left, #f8fafc 0%, #e2e8f0 100%);
 }
 
 </style>

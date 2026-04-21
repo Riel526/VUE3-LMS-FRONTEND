@@ -18,7 +18,7 @@
         </template>
       </q-input>
 
-      <q-btn color="primary" icon="add" label="Add Student" @click="showAddStudentsModal(true)"/>
+      <q-btn color="primary" icon="add" label="Add Student" @click="showModal(true, null, 'add')"/>
     </div>
 
     <q-card flat bordered>
@@ -53,7 +53,7 @@
               <q-menu transition-show="scale" transition-hide="scale" self="top right" anchor="top right">
                 <q-list style="min-width: 150px">
                   
-                  <q-item clickable v-close-popup @click="editStudent(props.row)">
+                  <q-item clickable v-close-popup @click="showModal(true, null, 'update', props.row)">
                     <q-item-section avatar>
                       <q-icon name="edit" color="primary" />
                     </q-item-section>
@@ -74,8 +74,11 @@
         </template>
       </q-table>
     </q-card>
-    <q-dialog v-model="AddStudentModal" persistent transition-show="scale" transition-hide="scale">
-      <NewStudentModal @saved="showAddStudentsModal(false, 'added')"/>
+    <q-dialog v-model="AddStudentModalModel" persistent transition-show="scale" transition-hide="scale">
+      <NewStudentModal @saved="showModal(false, 'added', 'add')"/>
+    </q-dialog>
+    <q-dialog v-model="updateStudentModalModel" persistent transition-show="scale" transition-hide="scale">
+      <updateStudentModal @saved="showModal(false, 'updated', 'update')"/>
     </q-dialog>
   </q-page>
 </template>
@@ -85,12 +88,14 @@ import { onMounted, ref } from 'vue'
 import { studentsStore } from 'src/stores/modules/StudentsManagement/students'
 import { renderToast } from 'src/utils/notify'
 import NewStudentModal from 'src/components/Students/NewStudentModal.vue'
+import updateStudentModal from 'src/components/Students/UpdateStudentModal.vue'
 
 
 const storeStudents = studentsStore()
 const filter = ref('')
 const rows = ref ([])
-const AddStudentModal = ref(false)
+const AddStudentModalModel = ref(false)
+const updateStudentModalModel = ref(false)
 
 const columns = [
   { name: 'lrn', label: 'LRN', field: 'lrn', align: 'left', sortable: true },
@@ -103,10 +108,19 @@ const columns = [
   { name: 'action', label: 'Action', field: 'action', align: 'center' }
 ]
 
-const showAddStudentsModal = (condition, status) => {
-  AddStudentModal.value = condition
+const showModal = (condition, status, modalType, data) => {
 
-  if (status === 'added') {
+  if (modalType === 'add') {
+    AddStudentModalModel.value = condition
+  }
+
+  if (modalType === 'update') {
+    updateStudentModalModel.value = condition
+    storeStudents.studentData = data ? { ...data } : null
+  }
+
+  // get students if successfully added/updated/deleted through emitting
+  if (status === 'added' || status === 'updated') {
     getAllStudents()
   }
 }

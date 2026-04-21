@@ -43,7 +43,20 @@ export const studentsStore = defineStore('studentsStore', {
         message: error.response?.data?.message || 'Server connection failed'
         }
       }
-    }
+    },
+
+    async deleteStudent(id, payload) {
+      try {
+        const response = await api.delete(`/students/delete-student/${id}`, payload)
+        return response.data
+      } catch (error) {
+        return {
+        success: false,
+        status: error.response?.status || 500,
+        message: error.response?.data?.message || 'Server connection failed'
+        }
+      }
+    },
   }
 })
 

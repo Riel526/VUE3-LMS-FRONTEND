@@ -60,7 +60,7 @@
                     <q-item-section>Update</q-item-section>
                   </q-item>
 
-                  <q-item clickable v-close-popup @click="confirmDelete(props.row)">
+                  <q-item clickable v-close-popup @click="showModal(true, null, 'delete', props.row)">
                     <q-item-section avatar>
                       <q-icon name="delete" color="negative" />
                     </q-item-section>
@@ -80,6 +80,14 @@
     <q-dialog v-model="updateStudentModalModel" persistent transition-show="scale" transition-hide="scale">
       <updateStudentModal @saved="showModal(false, 'updated', 'update')"/>
     </q-dialog>
+    <q-dialog v-model="deleteStudentModalModel" persistent transition-show="scale" transition-hide="scale">
+      <ConfirmationModal 
+      :title="deleteContext.title"
+      :message="deleteContext.message"
+      :data="deleteContext.data"
+      @proceed="executeDelete"
+      />
+    </q-dialog>
   </q-page>
 </template>
 
@@ -89,6 +97,7 @@ import { studentsStore } from 'src/stores/modules/StudentsManagement/students'
 import { renderToast } from 'src/utils/notify'
 import NewStudentModal from 'src/components/Students/NewStudentModal.vue'
 import updateStudentModal from 'src/components/Students/UpdateStudentModal.vue'
+import ConfirmationModal from 'src/components/Global/ConfirmationModal.vue'
 
 
 const storeStudents = studentsStore()
@@ -96,6 +105,7 @@ const filter = ref('')
 const rows = ref ([])
 const AddStudentModalModel = ref(false)
 const updateStudentModalModel = ref(false)
+const deleteStudentModalModel = ref(false)
 
 const columns = [
   { name: 'lrn', label: 'LRN', field: 'lrn', align: 'left', sortable: true },
@@ -108,6 +118,12 @@ const columns = [
   { name: 'action', label: 'Action', field: 'action', align: 'center' }
 ]
 
+const deleteContext = ref({
+  title: '',
+  message: '',
+  data: ''
+})
+
 const showModal = (condition, status, modalType, data) => {
 
   if (modalType === 'add') {
@@ -119,8 +135,20 @@ const showModal = (condition, status, modalType, data) => {
     storeStudents.studentData = data ? { ...data } : null
   }
 
-  // get students if successfully added/updated/deleted through emitting
-  if (status === 'added' || status === 'updated') {
+  if (modalType === 'delete') {
+    deleteStudentModalModel.value = condition
+    if (condition && data) {
+      deleteContext.value = {
+        title: 'Delete Student',
+        message: `Are you sure you want to delete the student named ${data.first_name} ${data.last_name}?`,
+        data: { ...data }
+      }
+    }
+  }
+
+
+  // get students if successfully added/updated through emitting
+  if (status === 'added' || status === 'updated' || status === 'deleted') {
     getAllStudents()
   }
 }
@@ -133,8 +161,23 @@ const getAllStudents = async () => {
   } catch (err) {
     renderToast('error', 'Login Failed', err.message || 'Something went wrong. Please refresh the page and try again')
   }
-} 
+}
 
+const executeDelete = async (data) => {
+  try {
+    const res = await storeStudents.deleteStudent(data.id)
+
+    if (res.code === 200) {
+      renderToast('success', `Success (${res.code})`, res.message || 'Student Deleted Successfully')
+      showModal(false, 'deleted', 'delete')
+    } else {
+      renderToast('error', `Error (${res.code})`, res.message || 'Unsuccessful Deletion of Student')
+    }
+  } catch (err) {
+    renderToast('error', 'Login Failed', err.message || 'Something went wrong. Please refresh the page and try again')
+  }
+}
+  
 onMounted(() => {
   getAllStudents()
 })

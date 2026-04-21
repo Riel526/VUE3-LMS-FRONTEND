@@ -58,7 +58,7 @@
             <q-input v-model="form.email" label="Email Address" outlined dense type="email" />
           </div>
           <div class="col-12 col-md-6 flex items-center">
-            <q-toggle v-model="form.is_active" label="Account Status (Active)" color="positive" />
+            <q-toggle v-model="form.is_active" label="Account Status (Active)" color="secondary" />
           </div>
         </div>
 

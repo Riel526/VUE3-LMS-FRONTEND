@@ -76,3 +76,35 @@
     </div>
   </q-page>
 </template>
+
+
+<script setup>
+
+import { onMounted, ref } from 'vue'
+import { studentsStore } from 'src/stores/modules/StudentsManagement/students'
+import { renderToast } from 'src/utils/notify'
+// import { computed } from 'vue'
+// import { currUserStore } from 'src/stores/user/user'
+
+// const userStore = currUserStore()
+
+// const userData = computed(() => {
+//   return userStore.userData})
+
+const students = ref('')
+
+const storeStudents = studentsStore()
+
+const getAllStudents = async () => {
+  try {
+    const res = await storeStudents.getAllStudents()
+    students.value = res
+  } catch (err) {
+    renderToast('error', 'Login Failed', err.message || 'Something went wrong. Please refresh the page and try again')
+  }
+}
+
+onMounted(() => {
+  getAllStudents()
+})
+</script>

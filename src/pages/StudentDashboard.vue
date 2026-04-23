@@ -2,7 +2,7 @@
   <q-page padding class="bg-grey-1">
     <div class="row q-mb-lg items-center">
       <div class="col">
-        <div class="text-h4 text-weight-bold text-primary">Welcome back, {{ studentName }}! 👋</div>
+        <div class="text-h4 text-weight-bold text-primary">Welcome back, {{ `${userData.first_name} ${userData.last_name}` }}! 👋</div>
         <div class="text-subtitle1 text-grey-7">Here is what's happening with your studies today.</div>
       </div>
       <q-btn outline color="primary" icon="event" label="View Class Schedule" />
@@ -94,3 +94,14 @@
     </div>
   </q-page>
 </template>
+
+
+<script setup>
+import { computed } from 'vue'
+import { currUserStore } from 'src/stores/user/user'
+
+const userStore = currUserStore()
+
+const userData = computed(() => {
+  return userStore.userData})
+</script>

@@ -8,7 +8,7 @@ export const studentsStore = defineStore('studentsStore', {
   actions: {
     async getAllStudents() {
       try {
-        const response = await api.get('/students/get-students')
+        const response = await api.get('api/students/get-students')
         return response.data
       } catch (error) {
         return {
@@ -21,7 +21,7 @@ export const studentsStore = defineStore('studentsStore', {
 
     async addStudent(payload) {
       try {
-        const response = await api.post('/students/add-student', payload)
+        const response = await api.post('api/students/add-student', payload)
         return response.data
       } catch (error) {
         return {
@@ -34,7 +34,7 @@ export const studentsStore = defineStore('studentsStore', {
 
     async updateStudent(id, payload) {
       try {
-        const response = await api.put(`/students/update-student/${id}`, payload)
+        const response = await api.put(`api/students/update-student/${id}`, payload)
         return response.data
       } catch (error) {
         return {
@@ -47,7 +47,7 @@ export const studentsStore = defineStore('studentsStore', {
 
     async deleteStudent(id, payload) {
       try {
-        const response = await api.delete(`/students/delete-student/${id}`, payload)
+        const response = await api.delete(`api/students/delete-student/${id}`, payload)
         return response.data
       } catch (error) {
         return {

@@ -30,7 +30,7 @@ export const registerStore = defineStore('register', {
     },
     async registerUser(data) {
       try {
-        const res = await api.post('/auth/register', data)
+        const res = await api.post('api/auth/register', data)
         return res
       } catch (e) {
         return e.response

@@ -19,7 +19,6 @@ import StudentDashboard from './StudentDashboard.vue'
 const authStore = currUserStore()
 
 const userRole = computed(() => {
-  console.log('mehehe', authStore.userData)
   return authStore.userData.role.toLowerCase() || null
 })
 </script>

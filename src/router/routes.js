@@ -2,6 +2,7 @@ const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
+    meta: { requiresAuth: true },
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') }
     ]
@@ -19,7 +20,8 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: '/students', component: () => import('src/pages/modules/StudentsPage/StudentsPage.vue') },
-      { path: '/subjects', component: () => import('src/pages/modules/SubjectsPage/SubjectsPage.vue') }
+      { path: '/subjects', component: () => import('src/pages/modules/SubjectsPage/SubjectsPage.vue') },
+      { path: '/profile', component: () => import('src/pages/user/ProfilePage.vue') }
     ]
   },
 

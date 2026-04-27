@@ -50,7 +50,6 @@ const props = defineProps({
 const emit = defineEmits(['proceed'])
 
 const execute = () => {
-  console.log('asd', props.data)
   emit('proceed', props.data)
 }
 

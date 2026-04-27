@@ -90,6 +90,13 @@
               </q-item-section>
               <q-item-section>Classes</q-item-section>
             </q-item>
+
+            <q-item clickable v-ripple to="/subjects" class="q-pl-lg">
+              <q-item-section avatar>
+                <q-icon name="menu_book" size="xs" />
+              </q-item-section>
+              <q-item-section>Subjects</q-item-section>
+            </q-item>
           </q-expansion-item>
 
         </q-list>

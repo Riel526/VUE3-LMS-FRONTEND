@@ -141,7 +141,7 @@ const submitForm = async () => {
       renderToast('error', 'Error', res.message)
     }
   } catch (err) {
-    console.error(err)
+    renderToast('error', 'Error', err.message)
   }
 }
 </script>

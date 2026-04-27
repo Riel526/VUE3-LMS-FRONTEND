@@ -9,12 +9,18 @@
           <q-card-section class="row items-end q-gutter-md" style="margin-top: -60px">
             <q-avatar size="120px" class="bg-white shadow-2" style="border: 4px solid white">
               <img v-if="authStore.userData?.avatar" :src="authStore.userData?.avatar">
-              <span v-else class="bg-primary text-white full-width full-height flex flex-center text-h4">
-                {{ authStore.userData?.initials }}
-              </span>
-              <q-btn fab-mini color="secondary" icon="camera_alt" class="absolute-bottom-right" size="sm" />
+              
+              <img v-else src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png">
+
+              <q-btn 
+                fab-mini 
+                color="secondary" 
+                icon="camera_alt" 
+                class="absolute-bottom-right" 
+                size="sm" 
+              />
             </q-avatar>
-            
+                        
             <div class="q-pb-sm">
               <div class="text-h5 text-weight-bold text-grey-9">
                 {{ `${authStore.userData?.first_name} ${authStore.userData?.last_name}` }}

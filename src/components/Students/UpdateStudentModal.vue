@@ -107,7 +107,6 @@ const emit = defineEmits(['saved'])
 const storeStudents = studentsStore()
 
 const form = reactive({
-  id: null,
   first_name: '',
   middle_name: '',
   last_name: '',
@@ -132,7 +131,7 @@ const LRNRules = [val => (val && val.length === 10) || 'Must be 10 digits']
 
 const submitForm = async () => {
   try {
-    const res = await storeStudents.updateStudent(form.id, form)
+    const res = await storeStudents.updateStudent(form.user_id, form)
     
     if (res.success !== false) {
       renderToast('success', 'Success', 'Student updated successfully')

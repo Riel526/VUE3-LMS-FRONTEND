@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row q-mb-md items-center q-gutter-md">
-      <div class="text-h5 text-weight-bold text-primary">Students Management</div>
+      <div class="text-h5 text-weight-bold text-primary">Teachers Management</div>
       <q-space />
       
       <q-input 
@@ -9,7 +9,7 @@
         dense 
         debounce="300" 
         v-model="filter" 
-        placeholder="Search Students..."
+        placeholder="Search Teachers..."
         class="bg-white"
         style="width: 300px"
       >
@@ -18,7 +18,7 @@
         </template>
       </q-input>
 
-      <q-btn color="primary" icon="add" label="Add Student" @click="showModal(true, null, 'add')"/>
+      <q-btn color="primary" icon="add" label="Add Teacher" @click="showModal(true, null, 'add')"/>
     </div>
 
     <q-card flat bordered>
@@ -165,7 +165,7 @@ const getAllStudents = async () => {
 
 const executeDelete = async (data) => {
   try {
-    const res = await storeStudents.deleteStudent(data.student_id, data.user_id)
+    const res = await storeStudents.deleteStudent(data.id)
 
     if (res.code === 200) {
       renderToast('success', `Success (${res.code})`, res.message || 'Student Deleted Successfully')

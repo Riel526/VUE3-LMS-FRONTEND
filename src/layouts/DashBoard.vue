@@ -97,6 +97,12 @@
               </q-item-section>
               <q-item-section>Subjects</q-item-section>
             </q-item>
+            <q-item clickable v-ripple to="/teachers" class="q-pl-lg">
+              <q-item-section avatar>
+                <q-icon name="person_4" size="xs" />
+              </q-item-section>
+              <q-item-section>Teachers List</q-item-section>
+            </q-item>
           </q-expansion-item>
 
         </q-list>

@@ -74,11 +74,11 @@
         </template>
       </q-table>
     </q-card>
-    <q-dialog v-model="AddStudentModalModel" persistent transition-show="scale" transition-hide="scale">
-      <NewStudentModal @saved="showModal(false, 'added', 'add')"/>
+    <q-dialog v-model="updateTeacherModalModel" persistent transition-show="scale" transition-hide="scale">
+      <AddTeacherModal @saved="showModal(false, 'added', 'add')"/>
     </q-dialog>
     <q-dialog v-model="updateStudentModalModel" persistent transition-show="scale" transition-hide="scale">
-      <updateStudentModal @saved="showModal(false, 'updated', 'update')"/>
+      <UpdateTeacherModal @saved="showModal(false, 'updated', 'update')"/>
     </q-dialog>
     <q-dialog v-model="deleteStudentModalModel" persistent transition-show="scale" transition-hide="scale">
       <ConfirmationModal 
@@ -93,27 +93,26 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { studentsStore } from 'src/stores/modules/StudentsManagement/students'
+import { teachersStore } from 'src/stores/modules/TeachersManagement/teachers'
 import { renderToast } from 'src/utils/notify'
-import NewStudentModal from 'src/components/Students/NewStudentModal.vue'
-import updateStudentModal from 'src/components/Students/UpdateStudentModal.vue'
+import AddTeacherModal from 'src/components/Teachers/AddTeacherModal.vue'
+import UpdateTeacherModal from 'src/components/Teachers/UpdateTeacherModal.vue'
 import ConfirmationModal from 'src/components/Global/ConfirmationModal.vue'
 
 
-const storeStudents = studentsStore()
+const storeTeachers = teachersStore()
 const filter = ref('')
 const rows = ref ([])
-const AddStudentModalModel = ref(false)
+const updateTeacherModalModel = ref(false)
 const updateStudentModalModel = ref(false)
 const deleteStudentModalModel = ref(false)
 
 const columns = [
-  { name: 'lrn', label: 'LRN', field: 'lrn', align: 'left', sortable: true },
+  { name: 'employee_id', label: 'Employee ID', field: 'employee_id', align: 'left', sortable: true },
   { name: 'name', label: 'Full Name', field: row => `${row.first_name} ${row.middle_name ? row.middle_name[0] + '.' : ''} ${row.last_name}`, align: 'left', sortable: true },
   { name: 'email', label: 'Email', field: 'email', align: 'left' },
-  { name: 'grade', label: 'Grade', field: 'grade_level', align: 'center' },
-  { name: 'section', label: 'Section', field: 'section', align: 'center' },
-  { name: 'gwa', label: 'General Weighted Average', field: 'gwa', align: 'center', sortable: true },
+  { name: 'department', label: 'Department', field: 'department', align: 'center' },
+  { name: 'specialization', label: 'Specialization', field: 'specialization', align: 'center' },
   { name: 'status', label: 'Status', field: 'is_active', align: 'center', sortable: true },
   { name: 'action', label: 'Action', field: 'action', align: 'center' }
 ]
@@ -127,12 +126,12 @@ const deleteContext = ref({
 const showModal = (condition, status, modalType, data) => {
 
   if (modalType === 'add') {
-    AddStudentModalModel.value = condition
+    updateTeacherModalModel.value = condition
   }
 
   if (modalType === 'update') {
     updateStudentModalModel.value = condition
-    storeStudents.studentData = data ? { ...data } : null
+    storeTeachers.studentData = data ? { ...data } : null
   }
 
   if (modalType === 'delete') {
@@ -149,13 +148,14 @@ const showModal = (condition, status, modalType, data) => {
 
   // get students if successfully added/updated through emitting
   if (status === 'added' || status === 'updated' || status === 'deleted') {
-    getAllStudents()
+    getAllTeachers()
   }
 }
 
-const getAllStudents = async () => {
+const getAllTeachers = async () => {
   try {
-    const res = await storeStudents.getAllStudents()
+    const res = await storeTeachers.getAllTeachers()
+    console.log('hehe', res)
     rows.value = res
     console.log(rows)
   } catch (err) {
@@ -165,7 +165,7 @@ const getAllStudents = async () => {
 
 const executeDelete = async (data) => {
   try {
-    const res = await storeStudents.deleteStudent(data.id)
+    const res = await storeTeachers.deleteStudent(data.id)
 
     if (res.code === 200) {
       renderToast('success', `Success (${res.code})`, res.message || 'Student Deleted Successfully')
@@ -179,7 +179,7 @@ const executeDelete = async (data) => {
 }
   
 onMounted(() => {
-  getAllStudents()
+  getAllTeachers()
 })
 
 

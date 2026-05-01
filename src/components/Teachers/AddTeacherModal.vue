@@ -23,7 +23,7 @@
             <q-input v-model="form.email" label="Email" outlined dense :rules="emailRules" />
           </div>
           <div class="col-12 col-md-3">
-            <q-input v-model="form.birth_date" label="Birth Date" outlined dense mask="date" :rules="['date']">
+            <q-input v-model="form.birth_date" label="Birth Date" outlined dense mask="date" :rules="['date', val => !!val || 'Birth date is required']">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -43,8 +43,11 @@
 
         <div class="text-overline text-primary">Professional Details</div>
         <div class="row q-col-gutter-md">
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-3">
              <q-input v-model="form.specialization" label="Specialization" outlined dense :rules="requiredRules" />
+          </div>
+          <div class="col-12 col-md-3">
+             <q-input v-model="form.employee_id" label="Employee ID" outlined dense :rules="requiredRules" />
           </div>
           <div class="col-12 col-md-3">
              <q-select v-model="form.department" :options="deptOptions" label="Department" outlined dense :rules="requiredRules" />

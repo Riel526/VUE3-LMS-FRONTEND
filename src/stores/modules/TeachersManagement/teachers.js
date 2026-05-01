@@ -21,7 +21,7 @@ export const teachersStore = defineStore('teachersStore', {
 
     async addTeacher(payload) {
       try {
-        const response = await api.post('api/students/add-student', payload)
+        const response = await api.post('api/teachers/add-teacher', payload)
         return response.data
       } catch (error) {
         return {

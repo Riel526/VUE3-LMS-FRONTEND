@@ -32,8 +32,8 @@
       >
         <template v-slot:body-cell-status="props">
           <q-td :props="props">
-            <q-badge style :color="props.value === true ? 'positive' : 'grey'">
-              {{ props.value ? 'Active' : 'Inactive' }}
+            <q-badge style :color="props.value === true || props.value === 1 ? 'positive' : 'grey'">
+              {{ props.value || props.value === 1 ? 'Active' : 'Inactive' }}
             </q-badge>
           </q-td>
         </template>
@@ -131,7 +131,8 @@ const showModal = (condition, status, modalType, data) => {
 
   if (modalType === 'update') {
     updateStudentModalModel.value = condition
-    storeTeachers.studentData = data ? { ...data } : null
+    data.is_active = data.is_active === 1 ? true : false
+    storeTeachers.teacherData = data ? { ...data } : null
   }
 
   if (modalType === 'delete') {
@@ -155,7 +156,6 @@ const showModal = (condition, status, modalType, data) => {
 const getAllTeachers = async () => {
   try {
     const res = await storeTeachers.getAllTeachers()
-    console.log('hehe', res)
     rows.value = res
     console.log(rows)
   } catch (err) {

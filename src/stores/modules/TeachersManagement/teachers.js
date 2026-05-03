@@ -34,7 +34,7 @@ export const teachersStore = defineStore('teachersStore', {
 
     async updateTeacher(id, payload) {
       try {
-        const response = await api.put(`api/students/update-student/${id}`, payload)
+        const response = await api.put(`api/teachers/update-teacher/${id}`, payload)
         return response.data
       } catch (error) {
         return {
@@ -47,7 +47,7 @@ export const teachersStore = defineStore('teachersStore', {
 
     async deleteTeacher(id, payload) {
       try {
-        const response = await api.delete(`api/students/delete-student/${id}`, payload)
+        const response = await api.delete(`api/teachers/delete-teacher/${id}`, payload)
         return response.data
       } catch (error) {
         return {

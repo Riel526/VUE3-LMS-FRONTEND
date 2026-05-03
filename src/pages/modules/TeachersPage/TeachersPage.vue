@@ -131,16 +131,16 @@ const showModal = (condition, status, modalType, data) => {
 
   if (modalType === 'update') {
     updateStudentModalModel.value = condition
-    data.is_active = data.is_active === 1 ? true : false
+    if (data) { data.is_active = data?.is_active === 1 ? true : false }
     storeTeachers.teacherData = data ? { ...data } : null
-  }
+  } 
 
   if (modalType === 'delete') {
     deleteStudentModalModel.value = condition
     if (condition && data) {
       deleteContext.value = {
-        title: 'Delete Student',
-        message: `Are you sure you want to delete the student named ${data.first_name} ${data.last_name}?`,
+        title: 'Delete Teacher',
+        message: `Are you sure you want to teacher the teacher named ${data.first_name} ${data.last_name}?`,
         data: { ...data }
       }
     }
@@ -165,7 +165,7 @@ const getAllTeachers = async () => {
 
 const executeDelete = async (data) => {
   try {
-    const res = await storeTeachers.deleteStudent(data.id)
+    const res = await storeTeachers.deleteTeacher(data.teacher_id)
 
     if (res.code === 200) {
       renderToast('success', `Success (${res.code})`, res.message || 'Student Deleted Successfully')

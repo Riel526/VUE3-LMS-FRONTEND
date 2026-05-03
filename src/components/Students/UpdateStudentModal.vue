@@ -131,7 +131,7 @@ const LRNRules = [val => (val && val.length === 10) || 'Must be 10 digits']
 
 const submitForm = async () => {
   try {
-    const res = await storeStudents.updateStudent(form.user_id, form)
+    const res = await storeStudents.updateStudent(form.student_id, form)
     
     if (res.success !== false) {
       renderToast('success', 'Success', 'Student updated successfully')

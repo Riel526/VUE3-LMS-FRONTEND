@@ -5,7 +5,7 @@
         <div class="text-h4 text-weight-bold text-primary">Welcome back, {{ `${userData.first_name} ${userData.last_name}` }}! 👋</div>
         <div class="text-subtitle1 text-grey-7">Here is what's happening with your studies today.</div>
       </div>
-      <q-btn outline color="primary" icon="event" label="View Class Schedule" />
+      <q-btn outline color="primary" icon="event" label="View Class Schedule" @click="openScheduleModal(true)" />
     </div>
 
     <div class="row q-col-gutter-md q-mb-lg">
@@ -92,6 +92,9 @@
         </q-card>
       </div>
     </div>
+    <q-dialog v-model="scheduleModalModel" transition-show="scale" transition-hide="scale">
+      <ScheduleModal style="width: 95vw; max-width: 1600px;"/>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -99,8 +102,18 @@
 <script setup>
 import { computed } from 'vue'
 import { currUserStore } from 'src/stores/user/user'
+import { ref } from 'vue'
+import ScheduleModal from 'src/components/Dashboard/ScheduleModal.vue'
 
 const userStore = currUserStore()
+const task1 = ref(false)
+
+const scheduleModalModel = ref(false)
+
+
+const openScheduleModal = (condition) => {
+  scheduleModalModel.value = condition
+}
 
 const userData = computed(() => {
   return userStore.userData})

@@ -47,7 +47,7 @@
              <q-input v-model="form.lrn" label="LRN (Learner Reference Number)" outlined dense mask="##########" :rules=LRNRules />
           </div>
           <div class="col-12 col-md-3">
-             <q-select v-model="form.grade_level" :options="['Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12']" label="Grade Level" outlined dense />
+             <q-select v-model="form.grade_level" :options="gradeOptions" outlined dense />
           </div>
           <div class="col-12 col-md-3">
              <q-select v-model="form.section" :options="['A', 'B', 'C']" label="Section" outlined dense />
@@ -70,6 +70,15 @@ import { renderToast } from 'src/utils/notify'
 
 const emit = defineEmits(['saved'])
 const store = studentsStore()
+
+const gradeOptions = [
+  { label: 'Grade 7', value: 7 },
+  { label: 'Grade 8', value: 8 },
+  { label: 'Grade 9', value: 9 },
+  { label: 'Grade 10', value: 10 },
+  { label: 'Grade 11', value: 11 },
+  { label: 'Grade 12', value: 12 }
+]
 
 const form = reactive({
   first_name: '',

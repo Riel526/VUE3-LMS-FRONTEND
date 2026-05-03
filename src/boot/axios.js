@@ -21,8 +21,10 @@ export default boot(({ app, router }) => {
 
     // Auth Token logic
     const authStore = userAuthStore()
-    if (authStore.token) {
-      config.headers.Authorization = `Bearer ${authStore.token}`
+    const token = authStore.token || localStorage.getItem('token') 
+
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
     }
 
     return config

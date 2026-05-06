@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="row items-center q-mb-xl">
       <div>
-        <div class="text-h4 text-weight-bolder text-grey-9">Subject Catalog</div>
+        <div class="text-h4 text-weight-bold text-primary">Subject Catalog</div>
         <div class="text-subtitle2 text-grey-6">View all academic modules</div>
       </div>
       <q-space />

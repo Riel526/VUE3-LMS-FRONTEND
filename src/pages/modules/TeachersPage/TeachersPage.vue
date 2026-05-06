@@ -159,7 +159,7 @@ const getAllTeachers = async () => {
     rows.value = res
     console.log(rows)
   } catch (err) {
-    renderToast('error', 'Login Failed', err.message || 'Something went wrong. Please refresh the page and try again')
+    renderToast('error', 'Failed', err.message || 'Something went wrong. Please refresh the page and try again')
   }
 }
 
@@ -174,7 +174,7 @@ const executeDelete = async (data) => {
       renderToast('error', `Error (${res.code})`, res.message || 'Unsuccessful Deletion of Student')
     }
   } catch (err) {
-    renderToast('error', 'Login Failed', err.message || 'Something went wrong. Please refresh the page and try again')
+    renderToast('error', 'Failed', err.message || 'Something went wrong. Please refresh the page and try again')
   }
 }
   

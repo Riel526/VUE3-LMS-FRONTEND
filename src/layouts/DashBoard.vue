@@ -66,6 +66,13 @@
               </q-item-section>
               <q-item-section>Home Dashboard</q-item-section>
             </q-item>
+
+            <q-item clickable v-ripple to="/assignments" class="q-pl-lg">
+              <q-item-section avatar>
+                <q-icon name="edit_note" size="xs" />
+              </q-item-section>
+              <q-item-section>Assignments</q-item-section>
+            </q-item>
             
           </q-expansion-item>
 

@@ -4,7 +4,7 @@
       <q-card-section class="row items-center bg-primary text-white">
         <div class="text-h6">Weekly Class Schedule</div>
         <q-space />
-        <q-btn icon="refresh" flat round @click="loadData" />
+        <q-btn icon="close" flat round @click="loadData" class="cursor-pointer" />
       </q-card-section>
 
       <q-card-section class="q-pa-none">
@@ -56,7 +56,7 @@
 import { ref, onMounted } from 'vue'
 import { QCalendarDay, today } from '@quasar/quasar-ui-qcalendar'
 import '@quasar/quasar-ui-qcalendar/dist/index.css'
-import { scheduleStore } from 'src/stores/modules/Schedule/Schedule'
+import { scheduleStore } from 'src/stores/modules/Schedule/schedule'
 import { renderToast } from 'src/utils/notify'
 
 const schedStore = scheduleStore()

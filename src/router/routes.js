@@ -23,7 +23,9 @@ const routes = [
       { path: '/subjects', component: () => import('src/pages/modules/SubjectsPage/SubjectsPage.vue') },
       { path: '/profile', component: () => import('src/pages/user/ProfilePage.vue') },
       { path: '/teachers', component: () => import('src/pages/modules/TeachersPage/TeachersPage.vue') },
-      { path: '/assignments', component: () => import('src/pages/modules/AssignmentsPage/AssignmentsPage.vue') }
+      { path: '/assignments', component: () => import('src/pages/modules/AssignmentsPage/AssignmentsPage.vue') },
+      { path: '/assignments/create-assignment', component: () => import('src/pages/modules/AssignmentsPage/CreateUpdateAssignmentPage.vue') },
+      { path: '/assignments/create-assignment/:id', component: () => import('src/pages/modules/AssignmentsPage/CreateUpdateAssignmentPage.vue') }
     ]
   },
 

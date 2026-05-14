@@ -72,9 +72,6 @@
                   {{ form.gwa || '0.00' }}
                 </div>
               </template>
-              <template v-slot:append>
-                <q-icon name="calculate" color="secondary" />
-              </template> 
             </q-field>
           </div>
           

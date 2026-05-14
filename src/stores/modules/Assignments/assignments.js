@@ -36,7 +36,59 @@ export const assignmentsStore = defineStore('assignmentsStore', {
         message: error.response?.data?.message || 'Server connection failed'
         }
       }
-    }
+    },
+
+    async getAssignments () {
+      try {
+        const response = await api.post('api/assignments/get-assignments')
+        return response.data
+      } catch (error) {
+        return {
+        success: false,
+        status: error.response?.status || 500,
+        message: error.response?.data?.message || 'Server connection failed'
+        }
+      }
+    },
+
+    async getAssignmentById(id) {
+      try {
+        const response = await api.get(`api/assignments/get-assignment/${id}`)
+        return response.data
+      } catch (error) {
+        return {
+        success: false,
+        status: error.response?.status || 500,
+        message: error.response?.data?.message || 'Server connection failed'
+        }
+      }
+    },
+
+    async updateAssignment (id, payload) {
+      try {
+        const response = await api.put(`api/assignments/update-assignment/${id}`, payload)
+        return response.data
+      } catch (error) {
+        return {
+        success: false,
+        status: error.response?.status || 500,
+        message: error.response?.data?.message || 'Server connection failed'
+        }
+      }
+    },
+
+    async deleteAssignment (id) {
+      try {
+        const response = await api.delete(`api/assignments/delete-assignment/${id}`)
+        return response.data
+      } catch (error) {
+        return {
+        success: false,
+        status: error.response?.status || 500,
+        message: error.response?.data?.message || 'Server connection failed'
+        }
+      }
+    },
   }
 })
 

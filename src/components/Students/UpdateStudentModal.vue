@@ -46,7 +46,7 @@
              <q-input v-model="form.lrn" label="LRN" outlined dense mask="##########" :rules="LRNRules" />
           </div>
           <div class="col-12 col-md-3">
-             <q-select v-model="form.grade_level" :options="gradeOptions" label="Grade Level" outlined dense />
+             <q-select v-model="form.grade_level" :options="gradeOptions" label="Grade Level" outlined dense emit-value map-options />
           </div>
           <div class="col-12 col-md-3">
              <q-select v-model="form.section" :options="['A', 'B', 'C']" label="Section" outlined dense />
@@ -116,12 +116,12 @@ const form = reactive({
 })
 
 const gradeOptions = [
-  { label: 'Grade 7', value: 7 },
-  { label: 'Grade 8', value: 8 },
-  { label: 'Grade 9', value: 9 },
-  { label: 'Grade 10', value: 10 },
-  { label: 'Grade 11', value: 11 },
-  { label: 'Grade 12', value: 12 }
+  { label: 'Grade 7', value: '7' },
+  { label: 'Grade 8', value: '8' },
+  { label: 'Grade 9', value: '9' },
+  { label: 'Grade 10', value: '10' },
+  { label: 'Grade 11', value: '11' },
+  { label: 'Grade 12', value: '12' }
 ]
 
 onMounted(() => {

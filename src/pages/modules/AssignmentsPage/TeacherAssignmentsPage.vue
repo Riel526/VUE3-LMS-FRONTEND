@@ -84,7 +84,7 @@ const deleteContext = ref({
 
 const columns = [
   { name: 'title', label: 'Title', field: 'title', align: 'left', sortable: true },
-  { name: 'subject', label: 'Subject', field: 'subject', align: 'left' },
+  { name: 'subject', label: 'Subject', field:  row => `${row.subject.name}`,  align: 'left' },
   { 
     name: 'target', 
     label: 'Grade/Section', 

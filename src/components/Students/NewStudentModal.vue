@@ -47,7 +47,7 @@
              <q-input v-model="form.lrn" label="LRN (Learner Reference Number)" outlined dense mask="##########" :rules=LRNRules />
           </div>
           <div class="col-12 col-md-3">
-             <q-select v-model="form.grade_level" :options="gradeOptions" outlined dense />
+             <q-select v-model="form.grade_level" :options="gradeOptions" emit-value map-options dense />
           </div>
           <div class="col-12 col-md-3">
              <q-select v-model="form.section" :options="['A', 'B', 'C']" label="Section" outlined dense />
@@ -72,12 +72,12 @@ const emit = defineEmits(['saved'])
 const store = studentsStore()
 
 const gradeOptions = [
-  { label: 'Grade 7', value: 7 },
-  { label: 'Grade 8', value: 8 },
-  { label: 'Grade 9', value: 9 },
-  { label: 'Grade 10', value: 10 },
-  { label: 'Grade 11', value: 11 },
-  { label: 'Grade 12', value: 12 }
+  { label: 'Grade 7', value: '7' },
+  { label: 'Grade 8', value: '8' },
+  { label: 'Grade 9', value: '9' },
+  { label: 'Grade 10', value: '10' },
+  { label: 'Grade 11', value: '11' },
+  { label: 'Grade 12', value: '12' }
 ]
 
 const form = reactive({

@@ -115,7 +115,14 @@ const form = reactive({
   is_active: true
 })
 
-const gradeOptions = ['Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12']
+const gradeOptions = [
+  { label: 'Grade 7', value: 7 },
+  { label: 'Grade 8', value: 8 },
+  { label: 'Grade 9', value: 9 },
+  { label: 'Grade 10', value: 10 },
+  { label: 'Grade 11', value: 11 },
+  { label: 'Grade 12', value: 12 }
+]
 
 onMounted(() => {
   if (storeStudents.studentData) {

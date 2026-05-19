@@ -42,8 +42,11 @@
 
         <div class="text-overline text-primary">Professional Details</div>
         <div class="row q-col-gutter-md">
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-3">
              <q-input v-model="form.specialization" label="Specialization" outlined dense :rules="requiredRules" />
+          </div>
+          <div class="col-12 col-md-3">
+             <q-input v-model="form.employee_id" label="Employee ID" outlined dense :rules="requiredRules" />
           </div>
           <div class="col-12 col-md-3">
              <q-select v-model="form.department" :options="deptOptions" label="Department" outlined dense :rules="requiredRules" />

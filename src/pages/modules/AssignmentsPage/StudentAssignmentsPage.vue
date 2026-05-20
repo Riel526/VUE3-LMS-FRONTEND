@@ -97,7 +97,7 @@ const formatDate = (val) => date.formatDate(val, 'MMM DD, YYYY, HH:mm')
 
 const handleAction = (assignment) => {
   if (isCompleted(assignment)) {
-    router.push(`/assignments/results/${assignment.assignment_id}`)
+    router.push(`/assignments/view-result/${assignment.assignment_id}`)
   } else {
     router.push(`/assignments/answer-assignment/${assignment.assignment_id}`)
   }

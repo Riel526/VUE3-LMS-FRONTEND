@@ -118,6 +118,19 @@ export const assignmentsStore = defineStore('assignmentsStore', {
       }
     },
 
+    async viewResult (id) {
+      try {
+        const response = await api.get(`api/assignments/get-assignment-result/${id}`)
+        return response.data
+      } catch (error) {
+        return {
+        success: false,
+        status: error.response?.status || 500,
+        message: error.response?.data?.message || 'Server connection failed'
+        }
+      }
+    },
+
   }
 })
 

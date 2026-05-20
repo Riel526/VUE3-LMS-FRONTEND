@@ -32,7 +32,7 @@
         <q-card flat bordered class="assignment-card full-height column">
           <q-card-section>
             <div class="row justify-between items-start no-wrap">
-              <div class="text-h6 q-mb-xs">{{  assignment.subject?.name }}</div>
+              <div class="text-h6 q-mb-xs"><q-icon name="book" size="xs" class="q-mr-xs" />{{  assignment.subject?.name }}</div>
               <q-chip 
                 :color="getStatusColor(assignment)" 
                 text-color="white" 
@@ -43,7 +43,6 @@
               </q-chip>
             </div>
             <div class="text-caption text-grey-7 row items-center">
-              <q-icon name="book" size="xs" class="q-mr-xs" />
               {{ assignment.subject?.category || 'No Subject' }}
             </div>
           </q-card-section>
@@ -98,9 +97,9 @@ const formatDate = (val) => date.formatDate(val, 'MMM DD, YYYY, HH:mm')
 
 const handleAction = (assignment) => {
   if (isCompleted(assignment)) {
-    router.push(`/student/results/${assignment.assignment_id}`)
+    router.push(`/assignments/results/${assignment.assignment_id}`)
   } else {
-    router.push(`/student/take-assignment/${assignment.assignment_id}`)
+    router.push(`/assignments/answer-assignment/${assignment.assignment_id}`)
   }
 }
 

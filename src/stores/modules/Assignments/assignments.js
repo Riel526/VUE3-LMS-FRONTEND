@@ -97,7 +97,19 @@ export const assignmentsStore = defineStore('assignmentsStore', {
         const response = await api.post('api/assignments/get-student-assignment')
         return response.data
       } catch (error) {
-        console.log('asd', error)
+        return {
+        success: false,
+        status: error.response?.status || 500,
+        message: error.response?.data?.message || 'Server connection failed'
+        }
+      }
+    },
+
+    async submitAnswers (payload) {
+      try {
+        const response = await api.post('api/assignments/submit-assignment', payload)
+        return response.data
+      } catch (error) {
         return {
         success: false,
         status: error.response?.status || 500,

@@ -4,7 +4,7 @@ import { Loading, QSpinnerGears } from 'quasar'
 import { userAuthStore } from 'src/stores/login/auth'
 
 const api = axios.create({ 
-  baseURL: import.meta.env.VITE_QUASAR_API_URL_LOCAL 
+  baseURL: import.meta.env.VITE_QUASAR_API_URL || 'http://127.0.0.1:8000'
 })
 
 export default boot(({ app, router }) => {

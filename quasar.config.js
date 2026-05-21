@@ -47,7 +47,7 @@ export default defineConfig((ctx) => {
       env: {
         ...envParsed
       },
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,

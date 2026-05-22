@@ -4,7 +4,7 @@ import { Loading, QSpinnerGears } from 'quasar'
 import { userAuthStore } from 'src/stores/login/auth'
 
 const api = axios.create({ 
-  baseURL: import.meta.env.VITE_QUASAR_API_URL || 'https://laravel-lms-backend.onrender.com/api'
+  baseURL: import.meta.env.VITE_QUASAR_API_URL || 'https://laravel-lms-backend.onrender.com'
 })
 
 export default boot(({ app, router }) => {

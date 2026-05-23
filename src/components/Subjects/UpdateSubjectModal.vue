@@ -114,7 +114,7 @@ const getImageUrl = (path) => {
   if (!path) return null;
   if (path.startsWith('http')) return path;
 
-  const baseURL = import.meta.env.VITE_QUASAR_API_URL_LOCAL;
+  const baseURL = import.meta.env.VITE_QUASAR_API_URL;
   
   return `${baseURL}/storage/${path}`;
 };

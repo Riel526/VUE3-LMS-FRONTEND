@@ -30,6 +30,7 @@ export const assignmentsStore = defineStore('assignmentsStore', {
         const response = await api.post('api/assignments/add-assignment', payload)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -43,6 +44,7 @@ export const assignmentsStore = defineStore('assignmentsStore', {
         const response = await api.post('api/assignments/get-assignments')
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -56,6 +58,7 @@ export const assignmentsStore = defineStore('assignmentsStore', {
         const response = await api.get(`api/assignments/get-assignment/${id}`)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -69,6 +72,7 @@ export const assignmentsStore = defineStore('assignmentsStore', {
         const response = await api.put(`api/assignments/update-assignment/${id}`, payload)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -82,6 +86,7 @@ export const assignmentsStore = defineStore('assignmentsStore', {
         const response = await api.delete(`api/assignments/delete-assignment/${id}`)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -97,6 +102,7 @@ export const assignmentsStore = defineStore('assignmentsStore', {
         const response = await api.post('api/assignments/get-student-assignment')
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -110,6 +116,7 @@ export const assignmentsStore = defineStore('assignmentsStore', {
         const response = await api.post('api/assignments/submit-assignment', payload)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -123,6 +130,7 @@ export const assignmentsStore = defineStore('assignmentsStore', {
         const response = await api.get(`api/assignments/get-assignment-result/${id}`)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,

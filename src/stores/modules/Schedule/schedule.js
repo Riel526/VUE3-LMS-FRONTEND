@@ -11,6 +11,7 @@ export const scheduleStore = defineStore('scheduleStore', {
         const response = await api.get('api/schedule/get-schedule')
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,

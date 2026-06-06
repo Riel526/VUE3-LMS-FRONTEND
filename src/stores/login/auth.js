@@ -17,6 +17,7 @@ export const userAuthStore = defineStore('auth', {
 
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,

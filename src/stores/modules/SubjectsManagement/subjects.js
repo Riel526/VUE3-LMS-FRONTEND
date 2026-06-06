@@ -13,6 +13,7 @@ export const subjectsStore = defineStore('subjectsStore', {
         this.subjects = response.data.data
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -26,6 +27,7 @@ export const subjectsStore = defineStore('subjectsStore', {
         const response = await api.post('api/subjects/add-subject', payload)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -39,6 +41,7 @@ export const subjectsStore = defineStore('subjectsStore', {
         const response = await api.post(`api/subjects/update-subject/${id}`, payload)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -52,6 +55,7 @@ export const subjectsStore = defineStore('subjectsStore', {
         const response = await api.delete(`api/subjects/delete-subject/${id}`, payload)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,

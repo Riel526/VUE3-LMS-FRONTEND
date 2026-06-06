@@ -11,6 +11,7 @@ export const teachersStore = defineStore('teachersStore', {
         const response = await api.get('api/teachers/get-teachers')
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -24,6 +25,7 @@ export const teachersStore = defineStore('teachersStore', {
         const response = await api.post('api/teachers/add-teacher', payload)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -37,6 +39,7 @@ export const teachersStore = defineStore('teachersStore', {
         const response = await api.put(`api/teachers/update-teacher/${id}`, payload)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,
@@ -50,6 +53,7 @@ export const teachersStore = defineStore('teachersStore', {
         const response = await api.delete(`api/teachers/delete-teacher/${id}`, payload)
         return response.data
       } catch (error) {
+        console.error(error)
         return {
         success: false,
         status: error.response?.status || 500,

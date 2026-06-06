@@ -73,6 +73,13 @@
               </q-item-section>
               <q-item-section>Assignments</q-item-section>
             </q-item>
+
+            <q-item clickable v-ripple to="/chat" class="q-pl-lg">
+              <q-item-section avatar>
+                <q-icon name="chat" size="xs" />
+              </q-item-section>
+              <q-item-section>Classroom Chat</q-item-section>
+            </q-item>
             
           </q-expansion-item>
 

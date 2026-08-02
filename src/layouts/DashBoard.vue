@@ -80,6 +80,13 @@
               </q-item-section>
               <q-item-section>Classroom Chat</q-item-section>
             </q-item>
+
+            <q-item clickable v-ripple to="/payments" class="q-pl-lg">
+              <q-item-section avatar>
+                <q-icon name="payments" size="xs" />
+              </q-item-section>
+              <q-item-section>Payments</q-item-section>
+            </q-item>
             
           </q-expansion-item>
 

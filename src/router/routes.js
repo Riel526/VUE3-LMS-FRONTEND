@@ -45,6 +45,9 @@ const routes = [
       // chat
 
       { path: '/chat', component: () => import('src/pages/modules/ChatsPage/ChatsPage.vue') },
+
+      // payment
+      { path: '/payments', component: () => import('src/pages/modules/PaymentsPage/PaymentsPage.vue') },
     ]
   },
 

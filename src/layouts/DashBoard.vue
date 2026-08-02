@@ -86,6 +86,7 @@
           <q-separator q-my-sm />
 
           <q-expansion-item
+            v-if="isAdmin"
             expand-separator
             icon="settings"
             label="Management"
@@ -98,12 +99,12 @@
               <q-item-section>Students List</q-item-section>
             </q-item>
 
-            <q-item clickable v-ripple to="/classes" class="q-pl-lg">
+            <!-- <q-item clickable v-ripple to="/classes" class="q-pl-lg">
               <q-item-section avatar>
                 <q-icon name="school" size="xs" />
               </q-item-section>
               <q-item-section>Classes</q-item-section>
-            </q-item>
+            </q-item> -->
 
             <q-item clickable v-ripple to="/subjects" class="q-pl-lg">
               <q-item-section avatar>
@@ -132,7 +133,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { currUserStore } from 'src/stores/user/user'
 import { useRouter } from 'vue-router'
 import { renderToast } from 'src/utils/notify'
@@ -140,6 +141,20 @@ import { renderToast } from 'src/utils/notify'
 const leftDrawerOpen = ref(false)
 const currUser = currUserStore()
 const router = useRouter()
+const authStore = currUserStore()
+const isAdmin = ref(false)
+
+
+
+const userRole = computed(() => {
+  return authStore.userData.role.toLowerCase() || null
+})
+
+onMounted(()=>{
+  if (userRole.value === null) return  router.push('/login')
+
+  if (userRole.value === 'admin') return isAdmin.value = true
+})
 
 const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value

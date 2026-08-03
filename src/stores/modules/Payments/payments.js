@@ -2,14 +2,10 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 import { api } from 'src/boot/axios'
 
 export const paymentStore = defineStore('paymentStore', {
-    state: () => ({
-        loading: false
-    }),
     actions: {
-        async createCheckoutSession() {
-            this.loading = true
+        async createCheckoutSession(payload) {
             try {
-                const response = await api.post('api/payment/checkout')
+                const response = await api.post('api/payment/checkout', payload)
                 return response.data
             } catch (error) {
                 console.error(error)
@@ -18,8 +14,6 @@ export const paymentStore = defineStore('paymentStore', {
                     status: error.response?.status || 500,
                     message: error.response?.data?.message || 'Server connection failed'
                 }
-            } finally {
-                this.loading = false
             }
         }
     }

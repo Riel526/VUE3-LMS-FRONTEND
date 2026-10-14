@@ -48,6 +48,9 @@ const routes = [
 
       // payment
       { path: '/payments', component: () => import('src/pages/modules/PaymentsPage/PaymentsPage.vue') },
+      
+      { path: '/payment/success', component: () => import('src/pages/modules/PaymentsPage/PaymentSuccess.vue'),
+  },
     ]
   },
 
